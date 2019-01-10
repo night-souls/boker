@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+
+  </head>
+  <body>
+    <%- include("./header.ejs",{mytitle:isnew?"发布":"更新"})%>
+    
+    <div class="container">
+    	<form action="<%= isnew? '/blog':'/blog/update/'+info._id %>" method="post" enctype="multipart/form-data">
+    	  <div class="form-group">
+    	    <label for="exampleInputEmail1">标题：</label>
+    	    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="title" name="title" value="<%= isnew?'':info.title%>">
+    	  </div>
+
+
+    	  <div class="form-group">
+    	    <label for="exampleInputPassword1">内容：</label>
+    	    <textarea name="content" class="form-control" rows="4">
+             <%= isnew?'':info.content %>   
+            </textarea>
+    	  </div>
+            <input type="file" name="myfile">
+
+            <% if(!isnew) { %>
+                <img src="<%= info.imgPath %>">
+                <input type="hidden" name="oldpath" value="<%= info.imgPath %>">
+            <% } %>
+    	  <button type="submit" class="btn btn-default">提交</button>
+    	</form>
+    </div>
+
+  </body>
+</html>

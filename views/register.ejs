@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+	<script type="text/javascript" src='/bootstrap/js/jquery-1.11.0.js'></script>
+    <script type="text/javascript" src='/bootstrap/js/bootstrap.js'></script>
+  </head>
+  <body>
+    <%- include("./header.ejs",{mytitle:"注册"})%>
+
+    <div class="container-fluid">  <!-- container响应式布局（媒体查询） -->
+
+    	<form action="/register" method="post">
+    	  <div class="form-group">
+    	    <label for="exampleInputEmail1">邮箱：</label>
+    	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+    	  </div>
+    	  <div class="form-group">
+    	    <label for="exampleInputEmail2">昵称：</label>
+    	    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="username" name="username">
+    	  </div>
+    	  <div class="form-group">
+    	    <label for="exampleInputPassword1">密码：</label>
+    	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+    	  </div>
+    	  
+    	  <button type="submit" class="btn btn-default">注册</button>
+    	</form>
+    </div>
+    <script type="text/javascript">
+        function handleBlur(){
+            console.log("handleBlur");
+            $.ajax({
+                url:"/register/check",
+                data:{email:$("#exampleInputEmail1").val()},
+               
+                success(res){
+                    console.log(res)
+                    if(res.ok==1){
+                        alert("邮箱可用")
+                    }else{
+                        alert("邮箱已经注册") 
+                    }
+                }
+            })
+        }
+    </script>
+  </body>
+</html>
